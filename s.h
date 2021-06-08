@@ -20,16 +20,16 @@ class Command
 private:
     map<string, string> commands{
         {"gaa", "git add -A"},
-        {"gcm", "git commit -am"},
+        {"gcm", "git commit -am {message}"},
         {"gcma", "git commit --amend"},
-        {"gch", "git checkout"},
-        {"gchb", "git checkout -b"},
+        {"gch", "git checkout {branch}"},
+        {"gchb", "git checkout -b {branch}"},
         {"glo", "git log --oneline"},
         {"glop", "git log --pretty=format:\"%h  %cr  %cn : %s\""},
-        {"gps", "git push -u origin"},
+        {"gps", "git push -u origin {branch}"},
         {"gba", "git branch -a"},
         {"gpd", "git push origin --delete"},
-        {"gcro", "git config --get remote.origin.url"}};
+        {"gcro", "git config --get remote.origin.url"}}; 
 
 public:
     string getCommand(string key)
