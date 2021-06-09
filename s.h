@@ -8,6 +8,10 @@ using namespace std;
 class Error
 {
 public:
+    /**
+ * Print an error message and leave exit
+ * @param error {string} The error message
+ */
     Error(string error)
     {
         std::cout << error << std::endl;
@@ -18,6 +22,7 @@ public:
 class Command
 {
 private:
+    string command;
     map<string, string> commands{
         {"gaa", "git add -A"},
         {"gcm", "git commit -am {message}"},
@@ -29,10 +34,18 @@ private:
         {"gps", "git push -u origin {branch}"},
         {"gba", "git branch -a"},
         {"gpd", "git push origin --delete"},
-        {"gcro", "git config --get remote.origin.url"}}; 
+        {"gcro", "git config --get remote.origin.url"}};
 
 public:
-    string getCommand(string key)
+    Command(string key)
+    {
+        this->command = this->getCommands(key);
+    }
+    /**
+     * Simple getters
+     * @return {string} return command or an error
+     */
+    string getCommands(string key)
     {
         string cmd = commands[key];
         if (cmd != "")
@@ -40,6 +53,16 @@ public:
         else
             Error("La commande est introuvable.\nLire le README: https://github.com/Kyowdem/shortcut/");
         return "";
+    }
+    /**
+     * check if command got arg
+     * @return {boolean} 
+    */
+    bool containArg()
+    {
+        if(this->command.find("{"))
+            return true;
+        return false;
     }
     void run(string cmd) { run(cmd, ""); }
     void run(string cmd, string arg);
